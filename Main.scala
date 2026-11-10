@@ -17,8 +17,13 @@ object Main {
     val lexer = Lexer(StringReader(upl))
     var t = lexer.yylex()
     while (t != null) {
-      if (t == Lexer.Token.ILLEGAL) println(s"ERROR:${lexer.column()}:${lexer.line()} illegal character `${lexer.yytext()}`")
-      else if (t == Lexer.Token.NUMBER) println(s"$t(${lexer.yytext()})")
+      if (t == Lexer.Token.ILLEGAL)
+        println(s"Lexical error at line ${lexer.line()}, column ${lexer.column()}: illegal character '${lexer.yytext()}'")
+      else if (t == Lexer.Token.UNTERMINATED_COMMENT) {
+        println(s"Lexical error at line ${lexer.commentStartLine()}, column ${lexer.commentStartColumn()}: unterminated multiline comment")
+        return
+      }
+      else if (t == Lexer.Token.NUMBER) println(s"$t(${lexer.numberValue()})")
       else println(s"$t")
       t = lexer.yylex()
     }
