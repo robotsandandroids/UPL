@@ -4,7 +4,7 @@ import java.io.StringReader
 object Tests {
   private def scan(name: String, input: String): Unit = {
     println(s"--- $name ---")
-    val lexer = Lexer(StringReader(input))
+    val lexer = new Lexer(new StringReader(input))
     var t = lexer.yylex()
     while (t != null) {
       if (t == Lexer.Token.ILLEGAL) {

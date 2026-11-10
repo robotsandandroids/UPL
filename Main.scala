@@ -14,7 +14,7 @@ object Main {
     check consistency; 
     shape ugali; serve ugali; ?
     """;
-    val lexer = Lexer(StringReader(upl))
+    val lexer = new Lexer(new StringReader(upl))
     var t = lexer.yylex()
     while (t != null) {
       if (t == Lexer.Token.ILLEGAL)
